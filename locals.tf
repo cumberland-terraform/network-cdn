@@ -26,7 +26,7 @@ locals {
             prefix                          = "dist"
         }
         price_class                         = "PriceClass_100"
-        response_headers_policy             = "SecurityHeadersPolicy"
+        response_headers_policy             = "Managed-SecurityHeadersPolicy"
         ssl_protocol_version                = "TLSv1.2_2021"
         viewer_certificate                  = {
             cloudfront_default_certificate  = false
