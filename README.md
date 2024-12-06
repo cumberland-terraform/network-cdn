@@ -1,8 +1,8 @@
 # Enterprise Terraform 
-## AWS Core TEMPLATE
+## Cumberland Cloud Core Cloudfront Distribution
 ### Overview
 
-This is a template. See [Module Setup documentation](https://source.mdthink.maryland.gov/projects/ETM/repos/mdt-eter-mod-docs/browse/procedures/05_module_setup.md) for information on its use.
+TODO
 
 ### Usage
 
@@ -13,7 +13,7 @@ The bare minimum deployment can be achieved with the following configuration,
 ```hcl
 provider "aws" {
 	alias 					= "tenant"
-	region					= "us-east-1"
+	region					= "<region>"
 
 	assume_role {
 		role_arn 			= "arn:aws:iam::<tenant-account>:role/<role-name>"
