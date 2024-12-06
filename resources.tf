@@ -4,7 +4,7 @@ resource "aws_cloudfront_origin_access_identity" "this" {
 
 resource "aws_cloudfront_distribution" "this" {
     aliases                             = [ var.cdn.domain ]
-    default_root_object                 = var.distribution.default_root_object
+    default_root_object                 = var.cdn.default_root_object
     enabled                             = local.platform_defaults.enabled
     http_version                        = local.platform_defaults.http_version
     is_ipv6_enabled                     = local.platform_defaults.is_ipv6_enabled
@@ -26,8 +26,8 @@ resource "aws_cloudfront_distribution" "this" {
     }
 
     default_cache_behavior {
-        allowed_methods                 = var.distribution.allowed_methods
-        cached_methods                  = var.distribution.cached_methods
+        allowed_methods                 = var.cdn.allowed_methods
+        cached_methods                  = var.cdn.cached_methods
         cache_policy_id                 = data.aws_cloudfront_cache_policy.this.id
         default_ttl                     = local.platform_defaults.default_cache_behavior.default_ttl
         min_ttl                         = local.platform_defaults.default_cache_behavior.min_ttl
