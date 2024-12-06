@@ -11,7 +11,8 @@ variable "s3" {
   description                   = "S3 Bucket configuration object. If not provided, a bucket will be provisioned."
   type                          = object({
     bucket_regional_domain_name = string
-    id                          = string 
+    id                          = string
+    arn                         = string
   })
   default                       = null
 }
