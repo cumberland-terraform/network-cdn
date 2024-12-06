@@ -3,6 +3,8 @@ resource "aws_cloudfront_origin_access_identity" "this" {
 }
 
 resource "aws_cloudfront_distribution" "this" {
+    depends_on                          = [ module.log_bucket ]
+
     aliases                             = [ var.cdn.domain ]
     default_root_object                 = var.cdn.default_root_object
     enabled                             = local.platform_defaults.enabled
@@ -21,7 +23,7 @@ resource "aws_cloudfront_distribution" "this" {
 
     logging_config {
         include_cookies                 = local.platform_defaults.logging_config.include_cookies
-        bucket                          = module.log_bucket.bucket[0].id
+        bucket                          = local.logging_config.bucket
         prefix                          = local.platform_defaults.logging_config.prefix
     }
 

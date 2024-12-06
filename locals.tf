@@ -51,6 +51,15 @@ locals {
                                             module.web_bucket[0].bucket 
                                         ) : var.s3
 
+    logging_config                      = {
+        bucket                          = join(".", [
+                                            module.log_bucket.bucket[0].id,
+                                            "s3",
+                                            "amazonaws",
+                                            "com"
+                                        ])
+    }
+    
     origin_access_identity              = {
         comment                         = "${title(var.cdn.name)} Cloudfront Origin Access Identity"
     }
