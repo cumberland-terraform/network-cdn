@@ -51,5 +51,11 @@ module "log_bucket" {
   s3                            = {
     purpose                     = "Logs for ${var.cdn.name} CDN"
     suffix                      = join("-", [var.cdn.name, "cdn","logs"])
+    public_access_block         = {
+      block_public_acls         = false
+      block_public_policy       = false
+      ignore_public_acls        = false
+      restrict_public_buckets   = false
+    }
   }
 }
