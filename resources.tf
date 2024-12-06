@@ -21,7 +21,7 @@ resource "aws_cloudfront_distribution" "this" {
 
     logging_config {
         include_cookies                 = local.platform_defaults.logging_config.include_cookies
-        bucket                          = local.logs_configuration.id
+        bucket                          = module.log_bucket.bucket[0].id
         prefix                          = local.platform_defaults.logging_config.prefix
     }
 

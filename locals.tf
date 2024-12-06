@@ -48,13 +48,13 @@ locals {
                                         ) : var.kms
     
     s3                                  = local.conditions.provision_bucket ? (
-                                            module.s3[0].bucket 
+                                            module.web_bucket[0].bucket 
                                         ) : var.s3
 
     origin_access_identity              = {
         comment                         = "${title(var.cdn.name)} Cloudfront Origin Access Identity"
     }
-    
+
     platform                            = merge({
         # SERVICE SPECIFIC PLATFORM ARGS GO HERE, IF ANY.
     }, var.platform)
