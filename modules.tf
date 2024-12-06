@@ -50,6 +50,6 @@ module "log_bucket" {
   kms                           = local.kms
   s3                            = {
     purpose                     = "Logs for ${var.cdn.name} CDN"
-    suffix                      = join("-", [module.platform.prefix, var.cdn.name, "logs"])
+    suffix                      = join("-", [var.cdn.name, "logs"])
   }
 }
