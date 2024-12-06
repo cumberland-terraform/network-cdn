@@ -1,13 +1,55 @@
 module "platform" {
-  source                = "github.com/cumberland-terraform/platform"
-
-  platform              = var.platform
-  
-  hydration             = {
-    acm_cert_query      = true
+  # META ARGUMENTS
+  source                        = "github.com/cumberland-terraform/platform.git"
+  # PLATFORM ARGUMENTS
+  platform                      = local.platform
+  # MODULE ARGUMENTS
+  hydration                     = {
+    acm_cert_query              = true
   }
+  configuration                 = {
+    domain_name                 = var.cdn.domain
+  }
+}
 
-  configuration         = {
-    domain_name         = "TODO"
+module "kms" {
+  # META ARGUMENTS
+  count                         = local.conditions.provision_key ? 1 : 0
+  source                        = "github.com/cumberland-terraform/security-kms.git"
+  # PLATFORM ARGUMENTS
+  platform                      = local.platform
+  # MODULE ARGUMENTS
+  kms                           = {
+      alias_suffix              = var.cdn.name
+  }
+}
+
+module "web_bucket" {
+  # META ARGUMENTS
+  count                         = local.conditions.provision_bucket ? 1 : 0
+  source                        = "github.com/cumberland-terraform/storage-s3.git"
+  # PLATFORM ARGUMENTS
+  platform                      = local.platform
+  # MODULE ARGUMENTS
+  kms                           = local.kms
+  s3                            = {
+    purpose                     = "Static web content for ${var.cdn.name} CDN"
+    suffix                      = var.cdn.name
+    website_configuration       = {
+        enabled                 = true
+    } 
+  }
+}
+
+module "log_bucket" {
+  # META ARGUMENTS
+  source                        = "github.com/cumberland-terraform/storage-s3.git"
+  # PLATFORM ARGUMENTS
+  platform                      = local.platform
+  # MODULE ARGUMENTS
+  kms                           = local.kms
+  s3                            = {
+    purpose                     = "Logs for ${var.cdn.name} CDN"
+    suffix                      = join("-", [module.platform.prefix, var.cdn.name, "logs"])
   }
 }
