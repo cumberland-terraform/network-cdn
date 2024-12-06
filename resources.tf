@@ -38,7 +38,7 @@ resource "aws_cloudfront_distribution" "this" {
         }
 
     viewer_certificate {
-        acm_certificate_arn             = data.aws_acm_certificate.domain.arn
+        acm_certificate_arn             = module.platform.certificate.arn
         cloudfront_default_certificate  = local.platform_defaults.viewer_certificate.cloudfront_default_certificate
         minimum_protocol_version        = local.platform_defaults.viewer_certificate.ssl_protocol_version
         ssl_support_method              = local.platform_defaults.viewer_certificate.ssl_support_method
