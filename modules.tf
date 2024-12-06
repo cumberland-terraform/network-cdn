@@ -1,5 +1,13 @@
 module "platform" {
-  source                = "git::ssh://git@source.mdthink.maryland.gov:22/etm/mdt-eter-platform.git?depth=1"
+  source                = "github.com/cumberland-terraform/platform"
 
-  platform              = local.platform
+  platform              = var.platform
+  
+  hydration             = {
+    vpc_query           = false
+    subnets_query       = false
+    public_sg_query     = false
+    private_sg_query    = false
+    eks_ami_query       = false
+  }
 }
