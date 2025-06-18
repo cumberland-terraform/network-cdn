@@ -5,7 +5,7 @@ resource "aws_cloudfront_origin_access_identity" "this" {
 resource "aws_cloudfront_distribution" "this" {
     depends_on                          = [ module.log_bucket ]
 
-    aliases                             = [ var.cdn.domain ]
+    aliases                             = var.cdn.aliases    
     default_root_object                 = var.cdn.default_root_object
     enabled                             = local.platform_defaults.enabled
     http_version                        = local.platform_defaults.http_version

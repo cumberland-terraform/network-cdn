@@ -31,7 +31,7 @@ variable "kms" {
 variable "cdn" {
   description                   = "Cloudfront Distribution configuration object."
   type                          = object({
-    domain                      = string
+    aliases                     = list(string)    
     name                        = string
     default_root_object         = optional(string, "index.html")
     allowed_methods             = optional(list(string), [ 
