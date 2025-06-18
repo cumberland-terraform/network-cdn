@@ -8,7 +8,7 @@ module "platform" {
     acm_cert_query              = true
   }
   configuration                 = {
-    domain_name                 = var.cdn.domain
+    domain_name                 = var.cdn.aliases[0]
   }
 }
 
