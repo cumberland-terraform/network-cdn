@@ -126,8 +126,6 @@ git tag v1.0.1
 git push tag v1.0.1
 ```
 
-Update the `CHANGELOG.md` with information about changes.
-
 ### Pull Request Checklist
 
 Ensure each item on the following checklist is complete before updating any tenant deployments with a new version of this module,
