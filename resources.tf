@@ -5,6 +5,13 @@ resource "aws_cloudfront_origin_access_identity" "this" {
 resource "aws_cloudfront_distribution" "this" {
     depends_on                          = [ module.log_bucket ]
 
+    lifecycle {
+    ignore_changes                      = [
+                                            default_cache_behavior[0].default_ttl,
+                                            default_cache_behavior[0].max_ttl,
+                                        ]
+    }
+    
     aliases                             = var.cdn.aliases    
     default_root_object                 = var.cdn.default_root_object
     enabled                             = local.platform_defaults.enabled
