@@ -46,11 +46,11 @@ resource "aws_cloudfront_distribution" "this" {
         viewer_protocol_policy          = local.platform_defaults.default_cache_behavior.viewer_protocol_policy
     
         dynamic "function_association" {
-            for_each                     = var.conditions.provision_function ? toset([1]) : toset([0])
+            for_each                     = local.conditions.provision_function ? toset([1]) : toset([0])
         
             content {
                 event_type              = "viewer-request"
-                function_arn            = aws_cloudfront_function.handler.arn
+                function_arn            = aws_cloudfront_function.this.arn
             }
         }
     }
@@ -70,7 +70,7 @@ resource "aws_cloudfront_distribution" "this" {
     }
 }
 
-resource "aws_cloudfront_function" "url_shortener" {
+resource "aws_cloudfront_function" "this" {
   name                                  = local.function.name
   runtime                               = local.platform_defaults.runtime
   comment                               = local.function.comment
