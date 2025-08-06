@@ -5,6 +5,7 @@ locals {
     conditions                              = {
         provision_bucket                    = var.s3 == null
         provision_key                       = var.kms == null
+        provision_function                  = var.cdn.function != null
     }
 
     ## CLOUDFRONT DEFAULTS
@@ -39,6 +40,7 @@ locals {
                 restriction_type            = "none"
             }
         }
+        runtime                             = "cloudfront-js-1.0"
     }
     
     ## CALCULATED PROPERTIES
@@ -62,6 +64,15 @@ locals {
     
     origin_access_identity              = {
         comment                         = "${title(var.cdn.name)} Cloudfront Origin Access Identity"
+    }
+
+    function                            = {
+        name                            = lower(join("-", [
+                                            module.platform.prefix,
+                                            var.cdn.name,
+                                            "handler"
+                                        ]))
+        comment                         = "${title(var.cdn.name)} CloudFront Function handler"
     }
 
     platform                            = merge({

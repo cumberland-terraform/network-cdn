@@ -43,5 +43,8 @@ variable "cdn" {
                                     "GET",
                                     "HEAD"
                                 ])
+    function                    = optional(object({
+      code                      = string
+    }), null)
   })
 }
